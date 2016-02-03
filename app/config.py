@@ -17,6 +17,9 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
 
+    # WOODBOX
+    PASSWORD_SALT = 'salt' # Use some random salt
+
     @classmethod
     def init_app(cls, app):
         pass
