@@ -46,7 +46,6 @@ class DocumentNodeModel(NodeModel):
 
     __mapper_args__ = {
         'polymorphic_identity': 'document_node_model',
-        'inherit_condition': (id == NodeModel.id),
     }
 
 class DocumentModel(db.Model):

@@ -7,6 +7,7 @@ from flask_restful import Api
 from woodbox.access_control.api import Acl
 from woodbox.access_control.record import Or, IsOwner, IsUser1, HasRole, InRecordACL
 from woodbox.authenticator import HMACAuthenticator
+from woodbox.models.user_model import WBRoleModel
 from woodbox.record_api import make_api
 
 from ..models.user_model import UserModel
@@ -43,7 +44,7 @@ api_acl.grants({
         'DocumentNode': ['create', 'read', 'update', 'delete'],
         'ContentNode': ['read']
     },
-    '__anonymous': {
+    WBRoleModel.anonymous_role_name: {
         'User': ['read'],
         'Node': ['read'],
         'ContentNode': ['read']

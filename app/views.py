@@ -10,8 +10,9 @@ from woodbox.models.user_model import WBRoleModel
 from .models.user_model import UserModel
 
 def populate_db():
-    db.drop_all()
-    db.create_all()
+    db.initialize()
+
+    anonymous_role_id = WBRoleModel.get_anonymous_role_id()
 
     data = {'rolename': 'admin'}
     role = WBRoleModel(**data)
@@ -76,8 +77,8 @@ def populate_db():
     root_id = vs.id
 
     data = [
-        {'record_type': 'ContentNode', 'record_id': root_id, 'user_role': '__anonymous', 'permission': 'read'},
-        {'record_type': 'ContentNode', 'record_id': root_id, 'user_role': 'group1', 'permission': 'read'},
+        {'record_type': 'ContentNode', 'record_id': root_id, 'user_role_id': anonymous_role_id, 'permission': 'read'},
+        {'record_type': 'ContentNode', 'record_id': root_id, 'user_role_id': group1_role.id, 'permission': 'read'},
     ]
     for d in data:
         acl = RecordACLModel(**d)
