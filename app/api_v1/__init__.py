@@ -10,10 +10,15 @@ from woodbox.authenticator import HMACAuthenticator
 from woodbox.models.user_model import WBRoleModel
 from woodbox.record_api import make_api
 
-from ..models.user_model import UserModel
-from ..models.video_sequence_model import NodeModel, FolderNodeModel, DocumentNodeModel
+from .content_node import ContentNodeSchema
+from .document_node import DocumentNodeSchema
+from .folder_node import FolderNodeSchema
+from .node import NodeSchema
 from .user import UserSchema
-from .video_sequence import NodeSchema, FolderNodeSchema, DocumentNodeSchema, ContentNodeSchema
+from ..models.document_node_model import DocumentNodeModel
+from ..models.folder_node_model import FolderNodeModel
+from ..models.node_model import NodeModel
+from ..models.user_model import UserModel
 
 blueprint = Blueprint('api_v1', __name__)
 api = Api(blueprint)

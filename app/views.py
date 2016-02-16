@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function, unicode_literals
 
-from .models.video_sequence_model import FolderNodeModel, DocumentNodeModel, VideoSequenceModel
+from datetime import datetime
 
 from woodbox.db import db
 from woodbox.models.record_acl_model import RecordACLModel
 from woodbox.models.user_model import WBRoleModel
 
+from .models.document_model import DocumentModel
+from .models.document_node_model import DocumentNodeModel
+from .models.folder_node_model import FolderNodeModel
+from .models.node_model import NodeModel
 from .models.user_model import UserModel
 
 def populate_db():
@@ -85,8 +89,8 @@ def populate_db():
         db.session.add(acl)
     db.session.commit()
 
-    data = {'title': 'MyDocument', 'date_unknown': True}
-    vs = VideoSequenceModel(**data)
+    data = {'title': 'MyDocument', 'date_created': datetime.now()}
+    vs = DocumentModel(**data)
     db.session.add(vs)
     db.session.commit()
 
