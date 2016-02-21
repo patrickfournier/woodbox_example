@@ -18,17 +18,11 @@ def populate_db():
 
     anonymous_role_id = WBRoleModel.get_anonymous_role_id()
 
-    data = {'rolename': 'admin'}
-    role = WBRoleModel(**data)
-    db.session.add(role)
-    db.session.commit()
-    admin_role = role
+    admin_role_id = UserModel.get_admin_role_id()
+    admin_role = WBRoleModel.query.get(admin_role_id);
 
-    data = {'rolename': 'user'}
-    role = WBRoleModel(**data)
-    db.session.add(role)
-    db.session.commit()
-    user_role = role
+    user_role_id = UserModel.get_user_role_id()
+    user_role = WBRoleModel.query.get(user_role_id);
 
     data = {'rolename': 'group1'}
     role = WBRoleModel(**data)
@@ -60,11 +54,7 @@ def populate_db():
     db.session.commit()
     charles_id = user.id
 
-    data = {'title': 'root', 'parent_node_id': None, 'owner_id': alice_id}
-    vs = FolderNodeModel(**data)
-    db.session.add(vs)
-    db.session.commit()
-    root_id = vs.id
+    root_id = FolderNodeModel.get_root_id()
 
     data = {'title': 'usr', 'parent_node_id': root_id, 'owner_id': alice_id}
     vs = FolderNodeModel(**data)
@@ -73,31 +63,42 @@ def populate_db():
     data = {'title': 'var', 'parent_node_id': root_id, 'owner_id': alice_id}
     vs = FolderNodeModel(**data)
     db.session.add(vs)
+    db.session.commit()
+    var_id = vs.id
 
     data = {'title': 'home', 'parent_node_id': root_id, 'owner_id': bob_id}
     vs = FolderNodeModel(**data)
     db.session.add(vs)
     db.session.commit()
-    root_id = vs.id
+    home_id = vs.id
 
     data = [
-        {'record_type': 'ContentNode', 'record_id': root_id, 'user_role_id': anonymous_role_id, 'permission': 'read'},
-        {'record_type': 'ContentNode', 'record_id': root_id, 'user_role_id': group1_role.id, 'permission': 'read'},
+        {'record_type': 'ContentNode', 'record_id': home_id, 'user_role_id': anonymous_role_id, 'permission': 'read'},
+        {'record_type': 'ContentNode', 'record_id': home_id, 'user_role_id': group1_role.id, 'permission': 'read'},
     ]
     for d in data:
         acl = RecordACLModel(**d)
         db.session.add(acl)
     db.session.commit()
 
-    data = {'title': 'MyDocument', 'date_created': datetime.now()}
+    data = {'title': 'Lorem', 'body': 'Lorem ipsum dolor', 'date_created': datetime.now()}
     vs = DocumentModel(**data)
     db.session.add(vs)
     db.session.commit()
 
-    data = {'document_id': vs.id, 'parent_node_id': root_id, 'owner_id': alice_id}
+    data = {'document_id': vs.id, 'parent_node_id': home_id, 'owner_id': alice_id}
     doc = DocumentNodeModel(**data)
     db.session.add(doc)
+    db.session.commit()
 
+    data = {'title': 'Sit amet', 'body': 'Consectetur adipiscing elit', 'date_created': datetime.now()}
+    vs = DocumentModel(**data)
+    db.session.add(vs)
+    db.session.commit()
+
+    data = {'document_id': vs.id, 'parent_node_id': var_id, 'owner_id': alice_id}
+    doc = DocumentNodeModel(**data)
+    db.session.add(doc)
     db.session.commit()
 
     return 'DB Initialization Done'

@@ -10,7 +10,9 @@ from ..models.folder_node_model import FolderNodeModel
 
 class ContentNodeSchema(JSONAPISchema):
     title = fields.Method('get_title')
+    body = fields.Method('get_body')
     node_type = fields.Method('get_type')
+    parent_folder_id = fields.Integer(attribute='parent_node_id')
 
     owner = fields.Relationship(
         '/api/v1/users/{user_id}',  # FIXME: find a way to get this
@@ -26,6 +28,11 @@ class ContentNodeSchema(JSONAPISchema):
             return obj.title
         elif isinstance(obj, DocumentNodeModel):
             return obj.document.title
+        return ''
+
+    def get_body(self, obj):
+        if isinstance(obj, DocumentNodeModel):
+            return obj.document.body
         return ''
 
     def get_type(self, obj):

@@ -8,3 +8,4 @@ from woodbox.jsonapi_schema import JSONAPISchema
 class DocumentSchema(JSONAPISchema):
     document_type = fields.String()
     title = fields.String()
+    body = fields.String()

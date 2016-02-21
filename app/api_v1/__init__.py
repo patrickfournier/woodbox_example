@@ -35,7 +35,7 @@ api_acl = Acl()
 
 # Grants
 api_acl.grants({
-    'admin': {
+    'administrator': {
         'User': ['read'],
         'Node': ['create', 'read', 'update', 'delete'],
         'FolderNode': ['create', 'read', 'update', 'delete'],
@@ -52,6 +52,8 @@ api_acl.grants({
     WBRoleModel.anonymous_role_name: {
         'User': ['read'],
         'Node': ['read'],
+        'FolderNode': ['read'],
+        'DocumentNode': ['read'],
         'ContentNode': ['read']
     }
 })
@@ -60,8 +62,7 @@ make_api(api, 'User', UserModel, UserSchema,
          api_authorizers=[api_acl.authorize])
 
 make_api(api, 'Node', NodeModel, NodeSchema,
-         api_authorizers=[api_acl.authorize],
-         record_authorizer=IsOwner())
+         api_authorizers=[api_acl.authorize])
 
 make_api(api, 'FolderNode', FolderNodeModel, FolderNodeSchema,
          api_authorizers=[api_acl.authorize])

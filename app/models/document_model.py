@@ -8,6 +8,7 @@ class DocumentModel(db.Model):
     document_type = db.Column(db.String(50))
 
     title = db.Column(db.String(256), unique=False, nullable=False)
+    body = db.Column(db.Text, nullable=True)
     date_created = db.Column(db.DateTime)
     date_modified = db.Column(db.DateTime)
 

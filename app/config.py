@@ -13,12 +13,16 @@ class Config(object):
     JSONIFY_PRETTYPRINT_REGULAR = True
 
     # SQLAlchemy
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/woodbox.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite+pysqlite:////tmp/woodbox.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
 
-    # WOODBOX
+    # Woodbox
     PASSWORD_SALT = 'salt' # Use some random salt
+
+    # Application
+    # TODO: Default admin name
+    # TODO: Default admin password
 
     @classmethod
     def init_app(cls, app):
