@@ -7,5 +7,12 @@ from .node import NodeSchema
 from .document import DocumentSchema
 
 class DocumentNodeSchema(NodeSchema):
-    parent_folder = fields.Nested('self', many=False, attribute='parent_node', exclude=('content',))
-    document = fields.Nested(DocumentSchema, many=False)
+    document = fields.Relationship(
+        '/api/v1/documents/{document_id}',  # FIXME: find a way to get
+                                            # this URL; the code is
+                                            # executed before the
+                                            # blueprint is registered.
+        related_url_kwargs={'document_id': '<document.id>'},
+        include_data=True,
+        type_='documents',
+    )

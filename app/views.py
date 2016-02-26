@@ -24,25 +24,13 @@ def populate_db():
     user_role_id = UserModel.get_user_role_id()
     user_role = WBRoleModel.query.get(user_role_id);
 
-    data = {'rolename': 'group1'}
-    role = WBRoleModel(**data)
-    db.session.add(role)
-    db.session.commit()
-    group1_role = role
-
-    data = {'rolename': 'group2'}
-    role = WBRoleModel(**data)
-    db.session.add(role)
-    db.session.commit()
-    group2_role = role
-
-    data = {'username': "alice", 'password': '123qwe', 'name': "Alice Allard", 'roles': [user_role, group1_role]}
+    data = {'username': "alice", 'password': '123qwe', 'name': "Alice Allard", 'roles': [user_role]}
     user = UserModel(**data)
     db.session.add(user)
     db.session.commit()
     alice_id = user.id
 
-    data = {'username': "bob", 'password': '123qwe', 'name': "Bob Binette", 'roles': [user_role, group2_role]}
+    data = {'username': "bob", 'password': '123qwe', 'name': "Bob Binette", 'roles': [user_role]}
     user = UserModel(**data)
     db.session.add(user)
     db.session.commit()
@@ -74,7 +62,6 @@ def populate_db():
 
     data = [
         {'record_type': 'ContentNode', 'record_id': home_id, 'user_role_id': anonymous_role_id, 'permission': 'read'},
-        {'record_type': 'ContentNode', 'record_id': home_id, 'user_role_id': group1_role.id, 'permission': 'read'},
     ]
     for d in data:
         acl = RecordACLModel(**d)

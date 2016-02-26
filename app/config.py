@@ -13,7 +13,13 @@ class Config(object):
     JSONIFY_PRETTYPRINT_REGULAR = True
 
     # SQLAlchemy
-    SQLALCHEMY_DATABASE_URI = 'sqlite+pysqlite:////tmp/woodbox.db'
+
+    # Example URI:
+    # - sqlite+pysqlite:////tmp/test.sqlite
+    # - mysql+mysqldb://woodbox_test:woodbox_test@localhost/woodbox_test
+    # - postgresql+psycopg2://woodbox_test:woodbox_test@localhost/woodbox_test
+    #SQLALCHEMY_DATABASE_URI = 'sqlite+pysqlite:////tmp/woodbox.db'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://woodbox_test:woodbox_test@localhost/woodbox_test'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
 

@@ -6,6 +6,5 @@ from marshmallow_jsonapi import fields
 from .node import NodeSchema
 
 class FolderNodeSchema(NodeSchema):
-    parent_folder = fields.Nested('self', many=False, attribute='parent_node', exclude=('content',))
     title = fields.String()
     content = fields.Nested(NodeSchema, many=True, exclude=('parent_node',))
