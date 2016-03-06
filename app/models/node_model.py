@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function, unicode_literals
 
+from flask import g
+
 from woodbox.db import db
 
 from .user_model import UserModel
@@ -19,3 +21,9 @@ class NodeModel(db.Model):
         'polymorphic_identity': 'node_model',
         'polymorphic_on': type
     }
+
+    def __init__(self, *args, **kwargs):
+        # Force the owner to be the authenticated user.
+        if 'user' in g:
+            kwargs['owner_id'] = g.user
+        super(NodeModel, self).__init__(*args, **kwargs)

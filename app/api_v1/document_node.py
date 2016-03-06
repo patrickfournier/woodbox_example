@@ -7,6 +7,7 @@ from .node import NodeSchema
 from .document import DocumentSchema
 
 class DocumentNodeSchema(NodeSchema):
+    document_id = fields.Integer()
     document = fields.Relationship(
         '/api/v1/documents/{document_id}',  # FIXME: find a way to get
                                             # this URL; the code is
