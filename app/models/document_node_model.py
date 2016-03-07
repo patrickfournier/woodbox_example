@@ -10,7 +10,9 @@ class DocumentNodeModel(NodeModel):
     id = db.Column(db.Integer, db.ForeignKey('node_model.id'), primary_key=True)
 
     document_id = db.Column(db.Integer, db.ForeignKey('document_model.id'), nullable=False)
-    document = db.relationship(DocumentModel, foreign_keys='DocumentNodeModel.document_id')
+    document = db.relationship(DocumentModel,
+                               foreign_keys='DocumentNodeModel.document_id', single_parent=True,
+                               cascade='all, delete-orphan')
 
     __mapper_args__ = {
         'polymorphic_identity': 'document_node_model',

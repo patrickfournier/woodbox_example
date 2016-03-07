@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function, unicode_literals
 
+from datetime import datetime
+
 from woodbox.db import db
 
 class DocumentModel(db.Model):
@@ -16,3 +18,9 @@ class DocumentModel(db.Model):
         'polymorphic_identity': 'document_model',
         'polymorphic_on': document_type
     }
+
+    def __init__(self, *args, **kwargs):
+        # Force the date_created  and date_modified to now.
+        kwargs['date_created'] = datetime.utcnow()
+        kwargs['date_modified'] = datetime.utcnow()
+        super(DocumentModel, self).__init__(*args, **kwargs)

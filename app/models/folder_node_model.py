@@ -35,6 +35,12 @@ class FolderNodeModel(NodeModel):
         return cls._root_id
 
 
+    def checkDeletePrecondition(self):
+        if self.content:
+            return "Folder is not empty. Delete or move content before deleting the folder."
+        return None
+
+
 class FolderNodeModelInitializer(DatabaseInitializer):
     dependencies = [UserModelInitializer]
 

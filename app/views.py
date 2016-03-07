@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function, unicode_literals
 
-from datetime import datetime
-
 from woodbox.db import db
 from woodbox.models.record_acl_model import RecordACLModel
 from woodbox.models.user_model import WBRoleModel
@@ -68,7 +66,7 @@ def populate_db():
         db.session.add(acl)
     db.session.commit()
 
-    data = {'title': 'Lorem', 'body': 'Lorem ipsum dolor', 'date_created': datetime.now()}
+    data = {'title': 'Lorem', 'body': 'Lorem ipsum dolor'}
     vs = DocumentModel(**data)
     db.session.add(vs)
     db.session.commit()
@@ -78,7 +76,7 @@ def populate_db():
     db.session.add(doc)
     db.session.commit()
 
-    data = {'title': 'Sit amet', 'body': 'Consectetur adipiscing elit', 'date_created': datetime.now()}
+    data = {'title': 'Sit amet', 'body': 'Consectetur adipiscing elit'}
     vs = DocumentModel(**data)
     db.session.add(vs)
     db.session.commit()
