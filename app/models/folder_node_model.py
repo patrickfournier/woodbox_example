@@ -4,8 +4,9 @@ from __future__ import absolute_import, print_function, unicode_literals
 from sqlalchemy.ext.declarative import declared_attr
 
 from woodbox.access_control.record import RecordACLModel
-from woodbox.models.user_model import WBRoleModel
 from woodbox.db import db, DatabaseInitializer
+from woodbox.models.user_model import WBRoleModel
+from woodbox.push_service import NotificationService
 
 from .node_model import NodeModel
 from .user_model import UserModel, UserModelInitializer
@@ -57,3 +58,5 @@ class FolderNodeModelInitializer(DatabaseInitializer):
                              permission='read')
         db.session.add(acl)
         db.session.commit()
+
+NotificationService.register_model(FolderNodeModel)

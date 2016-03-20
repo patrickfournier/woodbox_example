@@ -4,6 +4,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 from flask import g
 
 from woodbox.db import db
+from woodbox.push_service import NotificationService
 
 from .user_model import UserModel
 
@@ -27,3 +28,6 @@ class NodeModel(db.Model):
         if 'user' in g:
             kwargs['owner_id'] = g.user
         super(NodeModel, self).__init__(*args, **kwargs)
+
+
+NotificationService.register_model(NodeModel)

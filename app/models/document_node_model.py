@@ -2,6 +2,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 from woodbox.db import db
+from woodbox.push_service import NotificationService
 
 from .document_model import DocumentModel
 from .node_model import NodeModel
@@ -17,3 +18,6 @@ class DocumentNodeModel(NodeModel):
     __mapper_args__ = {
         'polymorphic_identity': 'document_node_model',
     }
+
+
+NotificationService.register_model(DocumentNodeModel)
