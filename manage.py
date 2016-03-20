@@ -22,7 +22,7 @@ manager = Manager(app)
 
 class TwistedServer(Command):
     def run(self):
-        create_server(app, 5000, debug=True) # FIXME: debug value from config
+        create_server(app, 5000)
 
 class InitDB(Command):
     def run(self):

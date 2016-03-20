@@ -23,6 +23,9 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
 
+    # Kafka logging
+    KAFKA_LOG_ENABLE = False
+
     # Woodbox
     PASSWORD_SALT = 'salt' # Use some random salt
 
@@ -41,11 +44,15 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SQLALCHEMY_ECHO = True
 
+    # Kafka logging
+    KAFKA_LOG_ENABLE = True
+
     @classmethod
     def init_app(cls, app):
         # Add an URL to initialize DB with some data.
         from .views import populate_db
         app.add_url_rule('/init', 'init', populate_db)
+
 
 class ProductionConfig(Config):
     SYSLOG_ADDRESS = os.environ.get('WOODBOX_SYSLOG_ADDRESS') or '/dev/log'
